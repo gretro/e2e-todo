@@ -9,11 +9,11 @@ export class App extends Component {
     this.state = {
       addItem: "",
       todos: [
-        { id: 0, label: "Item A", done: false },
-        { id: 1, label: "Item B", done: false },
-        { id: 2, label: "Item C", done: false }
+        { id: 0, label: "Do the groceries", done: false },
+        { id: 1, label: "Take out the trash", done: false },
+        { id: 2, label: "Play some Overwatch", done: false }
       ],
-      nextId: 10
+      nextId: 3
     };
   }
 
@@ -69,11 +69,16 @@ export class App extends Component {
               name="itemText"
               className="form-control"
               placeholder="Add an item"
+              data-qa="add-item__input"
               value={this.state.addItem}
               onChange={this.handleAddItemChanged}
             />
             <div className="input-group-append">
-              <button type="submit" className="btn btn-secondary">
+              <button
+                type="submit"
+                className="btn btn-secondary"
+                data-qa="add-item__btn"
+              >
                 Add
               </button>
             </div>
@@ -81,18 +86,22 @@ export class App extends Component {
         </form>
 
         <ul className="App-items">
-          {this.state.todos.map(todo => (
+          {this.state.todos.map((todo, i) => (
             <li
               key={todo.id}
               className={"todo-item" + (todo.done ? " done" : "")}
+              data-qa={"todo-item__" + i}
             >
               <label className="todo-item-label">
                 <input
                   type="checkbox"
                   checked={todo.done}
+                  data-qa="item__done-chkbox"
                   onChange={() => this.handleDone(todo.id)}
                 />
-                <div className="text">{todo.label}</div>
+                <div className="text" data-qa="item__label">
+                  {todo.label}
+                </div>
               </label>
             </li>
           ))}
